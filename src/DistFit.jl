@@ -1,5 +1,8 @@
 module DistFit
 
-# Write your package code here.
+using Distributions, Optim, QuadGK, Expectations, SpecialFunctions, ForwardDiff
+using Roots
+
+include("")
 
 end
