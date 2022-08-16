@@ -1,82 +1,78 @@
-# ψ Estimation
-# Note: The estimation equation is solved by minimisation instead of root search
+# ρ Estimation
 
-# General target function
 # Working horse
-function whψ(z::Vector{T1}, spec::T2)::Float64 where {T1 <: Real, T2 <: MSetting}
+function whρ(z::Vector{T1}, spec::T2) where {T1 <: Real, T2 <: MSetting}
     out = 0.0
     for i = 1:length(z)
-        out += ψ(z[i], spec)
+        out += ρ(z[i], spec)
     end
     out
 end
 
-# For multiple parameters
-function tfψ(θ::Vector{T1},
+# Target function for multiple parameters
+function tfρ(θ::Vector{T1},
              dOld::T2,
              X::Matrix{T3},
              spec::Vector{T4})::Float64 where {T1 <: Real, T2 <: UnivariateDistribution, T3 <: Real, T4 <: MSetting}
     if !checkParam(dOld, θ)
         return Inf
     end
-
     dtf = NewDist(dOld, θ)
     nPar = nParEff(dOld)
 
     μ = (i -> mean(dPower(dtf, i))).(1:nPar)
     σ = (i -> std(dPower(dOld, i))).(1:nPar)
 
-    out = zeros(nPar)
-    dm = dμ(dtf)
-
+    out = 0.0
     for i = 1:nPar
         zz = (X[i, :] .- μ[i])./σ[i]
-        temp = whψ(zz, spec[i])
-        out .+= temp.*dm[i, :]
+        out += whρ(zz, spec[i])
     end
-
-    return sum(out.^2)
+    out
 end
 
+
 # For one parameter
-function tfψ(θ::T1,
+function tfρ(θ::T1,
              dOld::T2,
              x::Vector{T3},
              spec::T4)::Float64 where {T1 <: Real, T2 <: UnivariateDistribution, T3 <: Real, T4 <: MSetting}
     if !checkParam(dOld, θ)
         return Inf
     end
-
     dtf = NewDist(dOld, θ)
     μ = mean(dtf)
     σ = std(dOld)
 
-    zz = (x .- μ)./σ
-    return whψ(zz, spec)^2
+    whρ((x .- μ)./σ, spec)
 end
 
 # Estimation function for multiple parameters
-function ψEstimPar(d::T1,
+function ρEstimPar(d::T1,
                 x::Vector{T2},
                 spec::Vector{T3};
                 maxIter::Int64 = 1000,
                 conv::Float64 = 1e-05) where {T1 <: UnivariateDistribution, T2 <: Real, T3 <: MSetting}
     nPar = nParEff(d)
+    out = zeros(nPar)
     θs = zeros(maxIter, nPar)
     θs[1, :] = (i -> params(d)[i]).(1:nPar)
     X = zeros(nPar, length(x))
     for i = 1:nPar
         X[i, :] = x.^i
     end
+
     dOld = d
 
     for i = 1:maxIter - 1
         specTemp = copy(spec)
+
         for j = 1:nPar
             specTemp[j] = updatekL(dPower(dOld, j), spec[j])
         end
-        θs[i+1, :] = optimize(vars -> tfψ(vars, dOld, X, specTemp), θs[i, :]).minimizer
+        θs[i+1, :] = optimize(vars -> tfρ(vars, dOld, X, specTemp), θs[i, :]).minimizer
         dOld = NewDist(d, θs[i+1, :])
+
         if checkConvergence(θs, i+1, conv)
             out = θs[i+1, :]
             break
@@ -91,27 +87,28 @@ function ψEstimPar(d::T1,
     return out
 end
 
-function ψEstimPar(d::T1,
-               x::Vector{T2},
-               spec::T3;
-               maxIter::Int64 = 1000,
-               conv::Float64 = 1e-05) where {T1 <: UnivariateDistribution, T2 <: Real, T3 <: MSetting}
+# For one parameter
+function ρEstimPar(d::T1,
+                x::Vector{T2},
+                spec::T3;
+                maxIter::Int64 = 1000,
+                conv::Float64 = 1e-05) where {T1 <: UnivariateDistribution, T2 <: Real, T3 <: MSetting}
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψEstimPar(d, x, fill(spec, nPar), maxIter = maxIter, conv = conv)
+        return ρEstimPar(d, x, fill(spec, nPar), maxIter = maxIter, conv = conv)
     end
 
     θs = zeros(maxIter)
     θs[1] = params(d)[1]
+
     dOld = d
 
     for i = 1:maxIter - 1
         specTemp = copy(spec)
-
         specTemp = updatekL(dOld, spec)
-        θs[i+1] = optimize(vars -> vars[2]^2 + tfψ(vars[1], dOld, x, specTemp), [θs[i], 0.0]).minimizer[1]
-        dOld = NewDist(d, [θs[i+1]])
+        θs[i+1] = optimize(vars -> vars[2]^2 + tfρ(vars[1], dOld, x, specTemp), [θs[i], 0.0]).minimizer[1]
+        dOld = NewDist(d, θs[i+1])
 
         if checkConvergence(θs, i+1, conv)
             out = θs[i+1]
@@ -127,5 +124,6 @@ function ψEstimPar(d::T1,
     return out
 end
 
+
 # Function for t Distribution
-# Ignored for a sec
+# Ignored for now

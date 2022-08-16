@@ -1,18 +1,16 @@
-# ψ Estimation
-# Note: The estimation equation is solved by minimisation instead of root search
-#       (for computational speed reasons only)
+# ρ Estimation
 
 # Working horse
-function whψ(z::Vector{T1}, spec::T2) where {T1 <: Real, T2 <: MSetting}
+function whρ(z::Vector{T1}, spec::T2) where {T1 <: Real, T2 <: MSetting}
     out = 0.0
     for i = 1:length(z)
-        out += ψ(z[i], spec)
+        out += ρ(z[i], spec)
     end
     out
 end
 
 # General target function
-function tfψ(θ::T1,
+function tfρ(θ::T1,
              dOld::T2,
              xp::Vector{T3},
              p::Int64,
@@ -23,11 +21,11 @@ function tfψ(θ::T1,
         end
     end
     σ = std(dPower(dOld, p))
-    whψ((xp .- θ)./σ, spec)^2
+    whρ((xp .- θ)./σ, spec)
 end
 
 # Estimation function for multiple parameters
-function ψEstimMom(d::T1,
+function ρEstimMom(d::T1,
                    x::Vector{T2},
                    spec::Vector{T3};
                    maxIter::Int64 = 1000,
@@ -48,12 +46,10 @@ function ψEstimMom(d::T1,
         specTemp = copy(spec)
 
         for j = 1:nPar
-            dp = dPower(dOld, j)
-            specTemp[j] = updatekL(dp, spec[j])
-            bounds = quantile.(dp, [0.01, 0.99])
-            μ[j] = optimize(vars -> tfψ(vars, dOld, X[j, :], j, specTemp[j]), bounds[1], bounds[2]).minimizer
+            specTemp[j] = updatekL(dPower(dOld, j), spec[j])
+            bounds = quantile.(dPower(dOld, j), [0.01, 0.99])
+            μ[j] = optimize(vars -> tfρ(vars, dOld, X[j, :], j, specTemp[j]), bounds[1], bounds[2]).minimizer
         end
-
         θs[i+1, :] = MTP(μ, dOld)
         dOld = NewDist(d, θs[i+1, :])
 
@@ -71,33 +67,29 @@ function ψEstimMom(d::T1,
     return out
 end
 
-# For a single parameter
-function ψEstimMom(d::T1,
+function ρEstimMom(d::T1,
                    x::Vector{T2},
                    spec::T3;
                    maxIter::Int64 = 1000,
                    conv::Float64 = 1e-05) where {T1 <: UnivariateDistribution, T2 <: Real, T3 <: MSetting}
     nPar = nParEff(d)
-    # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψEstimMom(d, x, fill(spec, nPar), maxIter = maxIter, conv = conv)
+        return ρEstimMom(d, x, fill(spec, nPar), maxIter = maxIter, conv = conv)
     end
-
     θs = zeros(maxIter)
     θs[1] = params(d)[1]
 
     dOld = d
-    μ = mean(d)
+    μ = PTM(dOld)[1]
+    out = 0.0
 
     for i = 1:maxIter - 1
-        specTemp = copy(spec)
         specTemp = updatekL(dOld, spec)
         bounds = quantile.(dOld, [0.01, 0.99])
-
-        μ = optimize(vars -> tfψ(vars, dOld, x, 1, specTemp), bounds[1], bounds[2]).minimizer
+        μ = optimize(vars -> tfρ(vars, dOld, x, 1, specTemp), bounds[1], bounds[2]).minimizer
 
         θs[i+1] = MTP([μ], dOld)[1]
-        dOld = NewDist(d, [θs[i+1]])
+        dOld = NewDist(d, θs[i+1])
 
         if checkConvergence(θs, i+1, conv)
             out = θs[i+1]
@@ -112,6 +104,3 @@ function ψEstimMom(d::T1,
 
     return out
 end
-
-# Function for t Distribution
-# Ignored for now
