@@ -2,7 +2,7 @@
 function whAVar(xx::T1,
                 p::Int64,
                 μ::Vector{Float64},
-                d::T2,^
+                d::T2,
                 spec::T3) where {T1 <: Real, T2 <: UnivariateDistribution, T3 <: MSetting}
     d2 = NewDist(d, MTP(μ, d))
     dp = dPower(d2, p)
