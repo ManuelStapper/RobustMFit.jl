@@ -1,5 +1,9 @@
 # Fallback that always returns true
-function checkParam(d::T)::Bool where {T <: UnivariateDistribution}
+function checkParam(d::T, θ::T2)::Bool where {T <: UnivariateDistribution, T2 <: Real}
+    return true
+end
+
+function checkParam(d::T, θ::Vector{T2})::Bool where {T <: UnivariateDistribution, T2 <: Real}
     return true
 end
 

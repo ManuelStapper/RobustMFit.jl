@@ -1,7 +1,22 @@
 # Functions that return the number of parameters to be estimated for a distirbution
 
 # General fallback function
-function nParEff(d::T)::Int64 where {T <: UnivariateDistribution}
+"""
+    nParEff(d::UnivariateDistribution)
+    
+Get the number of parameters of a distribution `d` to be estimated.
+Some parameters are treated constant.
+
+# Example
+```julia
+d1 = Normal()
+nParEff(d1)
+
+d2 = Binomial(10, 0.4)
+nParEff(d2)
+```
+"""
+function nParEff(d::T)::Int64 where {T<:UnivariateDistribution}
     return length(propertynames(d))
 end
 

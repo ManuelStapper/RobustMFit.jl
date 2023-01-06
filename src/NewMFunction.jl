@@ -1,6 +1,6 @@
-################################################
-### How to implement a custom loss function? ###
-################################################
+###############################################
+### How to implement a custom loss function ###
+###############################################
 
 # For Example: A modification of Huber functions, where for |z| > k
 # the loss function is not absolute, but logarithmic
