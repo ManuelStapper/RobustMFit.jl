@@ -1,4 +1,4 @@
-module MFit
+module RobustMFit
 
 using Distributions, Optim, QuadGK, Expectations, SpecialFunctions, ForwardDiff
 using Roots, Calculus, LinearAlgebra, Random

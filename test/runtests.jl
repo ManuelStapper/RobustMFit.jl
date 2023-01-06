@@ -1,7 +1,7 @@
-using MFit
+using RobustMFit
 using Test
 
-@testset "MFit.jl" begin
+@testset "RobustMFit.jl" begin
     using Random, Distributions
 
     d = Poisson(10)
@@ -119,7 +119,7 @@ using Test
         m = PTM(AllDists[i])
         MTP(m, AllDists[i])
         MTPder(m, AllDists[i])
-        MFit.dμ(AllDists[i])
+        RobustMFit.dμ(AllDists[i])
         getParams(AllDists[i])
     end
 
@@ -163,10 +163,10 @@ using Test
     rand(d, (10, 10))
     pdf.(d, [1, 2])
 
-    MFit.MyType(1.5)
-    MFit.MyType(1.5, 2.5)
-    MFit.MyTypeS(1.5, 2.5, 0.1)
-    spec2 = MFit.MyType(1.5, ϵ=0.1)
+    RobustMFit.MyType(1.5)
+    RobustMFit.MyType(1.5, 2.5)
+    RobustMFit.MyTypeS(1.5, 2.5, 0.1)
+    spec2 = RobustMFit.MyType(1.5, ϵ=0.1)
     ρ(0, spec2)
     ψ(0, spec2)
     ψder(0, spec2)
