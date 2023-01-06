@@ -325,7 +325,7 @@ end
 # Quantile function
 # For even p and continuous distribution, use bisection search
 # with 10 digit accuracy
-import Distributions.quantile, Statistics.quantile
+import Distributions.quantile
 """
     quantile(d::dPower, q::Real)
 

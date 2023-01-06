@@ -348,7 +348,7 @@ function MTP(μ::Vector{T}, d::VonMises)::Vector{Float64} where {T<:Real}
     function tf(θ, s)
         1 - besseli(1, θ) / besseli(0, θ) - s
     end
-    return [μ[1], find_zero(vars -> tf(vars, s), (0.0001, 1 / d.κ), Roots.A42(), atol=1e-05)]
+    return [μ[1], find_zero(vars -> tf(vars, s), (0.0001, 100), Roots.A42(), atol=1e-05)]
 end
 
 function MTP(μ::Vector{T}, d::Weibull)::Vector{Float64} where {T<:Real}

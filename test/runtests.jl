@@ -1,8 +1,8 @@
-using DistFit
+using MFit
 using Test
 
 @testset "MFit.jl" begin
-    using Random
+    using Random, Distributions
 
     d = Poisson(10)
     d2 = dPower(d, 2)
@@ -119,7 +119,7 @@ using Test
         m = PTM(AllDists[i])
         MTP(m, AllDists[i])
         MTPder(m, AllDists[i])
-        dμ(AllDists[i])
+        MFit.dμ(AllDists[i])
         getParams(AllDists[i])
     end
 
@@ -128,10 +128,6 @@ using Test
             FInfo(AllDists[i])
         end
     end
-
-    dμ(AllDists[i])
-    getParams(AllDists[i])
-    FInfo(AllDists[i])
 
     d = Dagum(5, 1, 1)
     mean(d)
@@ -167,10 +163,10 @@ using Test
     rand(d, (10, 10))
     pdf.(d, [1, 2])
 
-    MyType(1.5)
-    MyType(1.5, 2.5)
-    MyTypeS(1.5, 2.5, 0.1)
-    spec2 = MyType(1.5, ϵ=0.1)
+    MFit.MyType(1.5)
+    MFit.MyType(1.5, 2.5)
+    MFit.MyTypeS(1.5, 2.5, 0.1)
+    spec2 = MFit.MyType(1.5, ϵ=0.1)
     ρ(0, spec2)
     ψ(0, spec2)
     ψder(0, spec2)

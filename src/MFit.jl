@@ -43,4 +43,10 @@ include("FisherInfo.jl")
 include("AVar.jl")
 include("RAE.jl")
 
+export dPower, rand, minimum, maximum, insupport, cdf, pdf, logpdf, quantile, skewness, kurtosis
+export mean, var, std, NewDist, nParEff, MSetting, HuberSetting, TukeySetting, AndrewSetting, HampelSetting
+export Huber, Tukey, Andrew, Hampel, HuberS, AndrewS, HampelS, ρ, ψ, ψder, w
+export IF, MTP, MTPder, getParams, PTM, Dagum, mode, modes, CMPDist
+export findCorr, findkL, findkU, updatekL, updatekU, Mfit, FInfo, AVar, RAE
+
 end
