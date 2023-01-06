@@ -10,7 +10,7 @@ Different estimation approaches are implemented:
 
 ## Function types
 
-Estimation can be carried out by minimizing a loss function ($\rho$-type), finding the root of its derivative ($\psi$-type) or iteratively by a weight function ($w$-type).
+Estimation can be carried out by minimizing a loss function (ρ-type), finding the root of its derivative (ψ-type) or iteratively by a weight function (w-type).
 
 ## Method of Moments
 
@@ -18,9 +18,9 @@ The parameters can be estimated either directly or by estimating the raw moments
 
 ## Bias Correction
 
-Estimation is only unbiased in general if the underlying distribution is symmetric. A potential bias must also be taken into account for symmetric distributions with multiple parameters. Esimating for example the mean of a Normal distribution with symmetric ($\rho$, $\psi$ or $w$)-function is unproblematic, but estimating the variance parameter is not, since the distribution of $X^2$ is asymmetric.
+Estimation is only unbiased in general if the underlying distribution is symmetric. A potential bias must also be taken into account for symmetric distributions with multiple parameters. Esimating for example the mean of a Normal distribution with symmetric (ρ, ψ or w)-function is unproblematic, but estimating the variance parameter is not, since the distribution of $X^2$ is asymmetric.
 
-The bias can be tackled by a correction term in the $\psi$ estimation or by using asymmetric ($\rho$, $\psi$ or $w$)-functions. For asymmetric functions, different tuning constants are selected for positive and negative input. One of those is kept constant while the other is chosen such that the estimator is consistent.
+The bias can be tackled by a correction term in the $\psi$ estimation or by using asymmetric (ρ, ψ or w)-functions. For asymmetric functions, different tuning constants are selected for positive and negative input. One of those is kept constant while the other is chosen such that the estimator is consistent.
 
 # Examples
 
