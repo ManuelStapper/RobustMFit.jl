@@ -1,7 +1,7 @@
 RobustMFit.jl
 =============
 
-[![Build status](https://ci.appveyor.com/api/projects/status/2rir1d6va30gw3hx?svg=true)](https://ci.appveyor.com/project/ManuelStapper/robustmfit-jl) [![codecov](https://codecov.io/gh/ManuelStapper/RobustMFit.jl/branch/main/graph/badge.svg?token=3WH9IXRGBC)](https://codecov.io/gh/ManuelStapper/RobustMFit.jl)[![DOI](https://zenodo.org/badge/525409508.svg)](https://zenodo.org/badge/latestdoi/525409508)
+[![Build status](https://ci.appveyor.com/api/projects/status/2rir1d6va30gw3hx?svg=true)](https://ci.appveyor.com/project/ManuelStapper/robustmfit-jl) [![codecov](https://codecov.io/gh/ManuelStapper/RobustMFit.jl/branch/main/graph/badge.svg?token=3WH9IXRGBC)](https://codecov.io/gh/ManuelStapper/RobustMFit.jl) [![DOI](https://zenodo.org/badge/525409508.svg)](https://zenodo.org/badge/latestdoi/525409508)
 
 A Julia package to estimate parameters of a univariate distribution robustly by M-estimation. Currently implemented are Tukey, Huber, Andrew and Hampel functions as well as smoothed versions of the latter three. User-defined functions can be added using the `NewMFunction.jl` template.
 
