@@ -82,6 +82,7 @@ function ψMomL(d::T1,
     if nPar > 1
         return ψMomL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
     end
+    out = 0.0
 
     θs = zeros(maxIter)
     θs[1] = params(d)[1]
@@ -179,6 +180,7 @@ function ψMomU(d::T1,
 
     dOld = d
     μ = mean(d)
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -267,6 +269,7 @@ function ψMomN(d::T1,
 
     dOld = d
     μ = mean(d)
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)

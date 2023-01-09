@@ -69,6 +69,7 @@ function ψParL(d::T1,
         X[i, :] = x .^ i
     end
     dOld = d
+    out = zeros(nPar)
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -105,6 +106,7 @@ function ψParL(d::T1,
     θs = zeros(maxIter)
     θs[1] = getParams(d)[1]
     dOld = d
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -145,6 +147,7 @@ function ψParU(d::T1,
         X[i, :] = x .^ i
     end
     dOld = d
+    out = zeros(nPar)
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -181,6 +184,7 @@ function ψParU(d::T1,
     θs = zeros(maxIter)
     θs[1] = getParams(d)[1]
     dOld = d
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -217,6 +221,7 @@ function ψParN(d::T1,
         X[i, :] = x .^ i
     end
     dOld = d
+    out = zeros(nPar)
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -253,6 +258,7 @@ function ψParN(d::T1,
     θs = zeros(maxIter)
     θs[1] = getParams(d)[1]
     dOld = d
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)

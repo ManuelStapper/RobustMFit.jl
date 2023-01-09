@@ -89,6 +89,7 @@ function ψMomC(d::T1,
     dOld = d
     μ = mean(d)
     c = 0.0
+    out = 0.0
 
     for i = 1:maxIter - 1
         # specTemp = copy(spec)

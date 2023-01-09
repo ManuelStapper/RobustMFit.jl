@@ -103,6 +103,7 @@ function ρParL(d::T1,
     θs[1] = getParams(d)[1]
 
     dOld = d
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
@@ -184,6 +185,7 @@ function ρParU(d::T1,
 
     θs = zeros(maxIter)
     θs[1] = getParams(d)[1]
+    out = 0.0
 
     dOld = d
 
@@ -263,6 +265,7 @@ function ρParN(d::T1,
     θs[1] = getParams(d)[1]
 
     dOld = d
+    out = 0.0
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
