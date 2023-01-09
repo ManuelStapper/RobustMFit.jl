@@ -17,8 +17,8 @@ SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 
 [compat]
 julia = "1"
-Calculus = "0.5.1"
-Distributions = "0.23.11, 0.24, 0.25"
+Calculus = "0.5"
+Distributions = "0.23, 0.24, 0.25"
 Expectations = "1.8"
 ForwardDiff = "0.10"
 Optim = "1.2"
