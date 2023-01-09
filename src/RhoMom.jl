@@ -27,7 +27,7 @@ end
 # Estimation function for multiple parameters
 function ρMomL(d::T1,
     x::Vector{T2},
-    spec::Vector{T3};
+    spec::Vector{T3},
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
@@ -69,7 +69,7 @@ end
 
 function ρMomL(d::T1,
     x::Vector{T2},
-    spec::T3;
+    spec::T3,
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
@@ -108,7 +108,7 @@ end
 
 function ρMomU(d::T1,
     x::Vector{T2},
-    spec::Vector{T3};
+    spec::Vector{T3},
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
 
@@ -152,7 +152,7 @@ end
 
 function ρMomU(d::T1,
     x::Vector{T2},
-    spec::T3;
+    spec::T3,
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
@@ -191,7 +191,7 @@ end
 
 function ρMomN(d::T1,
     x::Vector{T2},
-    spec::Vector{T3};
+    spec::Vector{T3},
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
 
@@ -235,7 +235,7 @@ end
 
 function ρMomN(d::T1,
     x::Vector{T2},
-    spec::T3;
+    spec::T3,
     maxIter::Int64=1000,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)

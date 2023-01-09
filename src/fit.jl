@@ -40,17 +40,23 @@ function Mfit(x::Vector{T1},
     spec::T3;
     type::Union{Symbol,String}=:ψ,
     MM::Bool=true,
-    biasCorr::Union{Symbol,String}=:L) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
+    biasCorr::Union{Symbol,String}=:L,
+    maxIter::Int64 = 1000,
+    conv::Float64=1e-05) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
     fname = Symbol(type, ifelse(MM, :Mom, :Par), biasCorr)
-    return eval(Expr(:call, fname, d, x, spec))
+    return eval(Expr(:call, fname, d, x, spec, maxIter, conv))
 end
+
+
 
 function Mfit(x::Vector{T1},
     d::T2,
     spec::Vector{T3};
     type::Union{Symbol,String}=:ψ,
     MM::Bool=true,
-    biasCorr::Union{Symbol,String}=:L) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
+    biasCorr::Union{Symbol,String}=:L,
+    maxIter::Int64 = 1000,
+    conv::Float64=1e-05) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
     fname = Symbol(type, ifelse(MM, :Mom, :Par), biasCorr)
-    return eval(Expr(:call, fname, d, x, spec))
+    return eval(Expr(:call, fname, d, x, spec, maxIter, conv))
 end
