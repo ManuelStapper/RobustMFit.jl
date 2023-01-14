@@ -71,9 +71,9 @@ function findkL(d::T1,
     σ = std(d)
 
     if !isfinite(maximum(d) - minimum(d))
-        E = expectation(truncated(d, quantile(d, 0.001), quantile(d, 0.999)), n=10000)
+        E = expectation(truncated(d, quantile(d, 0.001), quantile(d, 0.999)), n=1000)
     else
-        E = expectation(d, n=10000)
+        E = expectation(d, n=1000)
     end
     indNeg = E.nodes .<= μ
     Eneg = IterableExpectation(E.nodes[indNeg], E.weights[indNeg])
@@ -154,9 +154,9 @@ function findkL(d::dPower,
         return spec.kU .* find_zero(kk -> tfkL(kk, μ, σ, p, spec, sNeg, probNeg, target), (lower, upper), Roots.A42(), atol=1e-05)
     else
         if !isfinite(maximum(d.d) - minimum(d.d))
-            E = expectation(truncated(d.d, quantile(d.d, 0.001), quantile(d.d, 0.999)), n=10000)
+            E = expectation(truncated(d.d, quantile(d.d, 0.001), quantile(d.d, 0.999)), n=1000)
         else
-            E = expectation(d.d, n=10000)
+            E = expectation(d.d, n=1000)
         end
         indNeg = E.nodes .<= cutoff
         Eneg = IterableExpectation(E.nodes[indNeg], E.weights[indNeg])

@@ -27,7 +27,7 @@ function findCorr(d::T1,
     σ = std(d)
 
     if !isfinite(maximum(d) - minimum(d))
-        E = expectation(truncated(d, quantile(d, 0.001), quantile(d, 0.999)), n=10000)
+        E = expectation(truncated(d, quantile(d, 0.001), quantile(d, 0.999)), n=1000)
     else
         E = expectation(d)
     end
@@ -56,7 +56,7 @@ function findCorr(d::dPower,
 
     if typeof(d.d) <: Distribution{Univariate,Continuous}
         if !isfinite(maximum(d.d) - minimum(d.d))
-            E = expectation(truncated(d.d, quantile(d.d, 0.001), quantile(d.d, 0.999)), n=10000)
+            E = expectation(truncated(d.d, quantile(d.d, 0.001), quantile(d.d, 0.999)), n=1000)
         else
             E = expectation(d.d)
         end

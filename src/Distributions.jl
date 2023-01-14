@@ -161,6 +161,7 @@ end
 
 # Function to order support of discrete distributions for even powers
 # Only internal
+# Might not be needed?
 function iterateSupport(d::dPower, iMax::Int64)::Vector{Float64}
     outRaw = zeros(Int64, 2 * iMax)
     outRaw[1] = Int64(round(mean(d.d)))
@@ -209,9 +210,13 @@ See also [`dPower`](@ref dPower).
 """
 function cdf(d::dPower, x::T)::Float64 where {T<:Real}
     if iseven(d.p)
-        if (x < minimum([minimum(d)^d.p, 0])) | (x > maximum(d))
+        if (x < minimum([minimum(d)^d.p, 0]))
             return 0.0
         end
+        if (x > maximum(d))
+            return 1.0
+        end
+
         if supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
             x1 = abs(x)^(1 / d.p)
             x2 = -abs(x)^(1 / d.p)
@@ -232,10 +237,7 @@ function cdf(d::dPower, x::T)::Float64 where {T<:Real}
             return sum(pdf.(d.d, sup))
         end
     else
-        x1 = sign(x) * abs(x)^(1 / d.p)
-        if abs(x1 - round(x1)) <= 1e-10
-            x1 = round(x1)
-        end
+        x1 = round(sign(x) * abs(x)^(1 / d.p), digits = 10)
         return cdf(d.d, x1)
     end
 end
@@ -263,21 +265,11 @@ function pdf(d::dPower, x::T)::Float64 where {T<:Real}
             if x < 0
                 return 0.0
             end
-            x1 = abs(x)^(1 / d.p)
-            x2 = -abs(x)^(1 / d.p)
-            if abs(x1 - round(x1)) <= 1e-10
-                x1 = Int64(round(x1))
-            end
-            if abs(x2 - round(x2)) <= 1e-10
-                x2 = Int64(round(x2))
-            end
-
+            x1 = round(abs(x)^(1 / d.p), digits = 10)
+            x2 = round(-abs(x)^(1 / d.p), digits = 10)
             return sum(pdf.(d.d, unique([x1, x2])))
         else
-            x1 = sign(x) * abs(x)^(1 / d.p)
-            if abs(x1 - round(x1)) <= 1e-10
-                x1 = Int64(round(x1))
-            end
+            x1 = round(sign(x) * abs(x)^(1 / d.p), digits = 10)
             return pdf(d.d, x1)
         end
     elseif supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
@@ -289,13 +281,7 @@ function pdf(d::dPower, x::T)::Float64 where {T<:Real}
             x2 = -abs(x)^(1 / d.p)
             return (pdf(d.d, x1) + pdf(d.d, x2)) * abs(x)^(1 / d.p - 1) / d.p
         else
-            temp = abs(x) .^ (1 / d.p)
-            temp2 = Int64(round(temp))
-            if abs(temp - temp2) <= 1e-05
-                x1 = temp2
-            else
-                x1 = temp
-            end
+            x1 = round(abs(x) .^ (1 / d.p), digits = 10)
             return pdf(d.d, sign(x) * x1) * abs(x)^(1 / d.p - 1) / d.p
         end
     else
@@ -342,6 +328,9 @@ See also [`dPower`](@ref dPower).
 """
 function quantile(d::dPower, q::T)::Float64 where {T<:Real}
     if iseven(d.p)
+        if minimum(d.d) >= 0
+            return quantile(d.d, q)^d.p
+        end
         if supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
             lower = 0
             Fl = cdf(d, lower)
@@ -420,9 +409,9 @@ end
 
 function skewness(d::T) where {T<:Distribution{Univariate,Continuous}}
     if isfinite(maximum(d) - minimum(d))
-        E = expectation(d, n=10000)
+        E = expectation(d, n=1000)
     else
-        E = expectation(truncated(d, quantile(d, 0.0001), quantile(d, 0.9999)), n=10000)
+        E = expectation(truncated(d, quantile(d, 0.0001), quantile(d, 0.9999)), n=1000)
     end
     μ = mean(d)
     σ = std(d)
@@ -466,9 +455,9 @@ end
 
 function kurtosis(d::T) where {T<:Distribution{Univariate,Continuous}}
     if isfinite(maximum(d) - minimum(d))
-        E = expectation(d, n=10000)
+        E = expectation(d, n=1000)
     else
-        E = expectation(truncated(d, quantile(d, 0.0001), quantile(d, 0.9999)), n=10000)
+        E = expectation(truncated(d, quantile(d, 0.0001), quantile(d, 0.9999)), n=1000)
     end
     μ = mean(d)
     σ = std(d)

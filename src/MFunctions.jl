@@ -730,6 +730,9 @@ function ψder(z::T1, spec::HuberS)::Float64 where {T1<:Real}
 end
 
 function w(z::T1, spec::HuberS)::Float64 where {T1<:Real}
+    if abs(z) < spec.ϵ
+        return ψder(z, spec)
+    end
     ψ(z, spec) / z
 end
 
