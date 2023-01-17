@@ -1,7 +1,7 @@
 name = "RobustMFit"
 uuid = "b65eaea1-64bc-41c1-8769-7d54b65f7ee7"
 authors = ["ManuelStapper <manuel.stapper@googlemail.com>"]
-version = "0.1.0"
+version = "0.1.1"
 
 [deps]
 Calculus = "49dc2e85-a5d0-5ad3-a950-438e2897f1b9"
