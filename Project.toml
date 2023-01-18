@@ -17,6 +17,14 @@ SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 
 [compat]
 julia = "1"
+ForwardDiff = "0.10"
+Expectations = "1"
+Distributions = "0.25"
+Calculus = "0.5"
+Roots = "2"
+SpecialFunctions = "2"
+QuadGK = "2"
+Optim = "1"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
