@@ -31,6 +31,13 @@ GeneralizedTDist(μ::Integer, σ::Integer, ν::Integer) = GeneralizedTDist(float
 import Distributions.@distr_support
 @distr_support GeneralizedTDist -Inf Inf
 
+function minimum(d::GeneralizedTDist)
+    return -Inf
+end
+function maximum(d::GeneralizedTDist)
+    return Inf
+end
+
 #### Conversions
 import Base.convert
 convert(::Type{GeneralizedTDist{T}}, μ::S, σ::S, ν::S) where {T<:Real,S<:Real} = GeneralizedTDist(T(μ), T(σ), T(ν))

@@ -31,6 +31,12 @@ Dagum(a::Integer, b::Integer, p::Integer) = Dagum(float(a), float(b), float(p))
 
 import Distributions.@distr_support
 @distr_support Dagum 0.0 Inf
+function minimum(d::Dagum)
+    return 0
+end
+function maximum(d::Dagum)
+    return Inf
+end
 
 #### Conversions
 import Base.convert

@@ -32,6 +32,12 @@ CMPDist(λ::Float64, ν::Integer) = CMPDist(λ, float(ν))
 import Distributions.@distr_support
 import Base.minimum, Base.maximum
 @distr_support CMPDist 0 (d.λ == zero(typeof(d.λ)) ? 0 : Inf)
+function minimum(d::CMPDist)
+    return 0
+end
+function maximum(d::CMPDist)
+    return Inf
+end
 
 #### Conversions
 
