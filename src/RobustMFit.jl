@@ -21,6 +21,7 @@ include("ParameterToMoments.jl")
 ### Additional Distributions/MFunctions
 include("Dagum.jl")
 include("CMPDist.jl")
+include("GeneralizedTDist.jl")
 include("NewMFunction.jl")
 
 ### Bias corrections
@@ -47,6 +48,6 @@ export dPower, rand, minimum, maximum, insupport, cdf, pdf, logpdf, quantile, sk
 export mean, var, std, NewDist, nParEff, MSetting, HuberSetting, TukeySetting, AndrewSetting, HampelSetting
 export Huber, Tukey, Andrew, Hampel, HuberS, AndrewS, HampelS, ρ, ψ, ψder, w
 export IF, MTP, MTPder, getParams, PTM, Dagum, mode, modes, CMPDist
-export findCorr, findkL, findkU, updatekL, updatekU, Mfit, FInfo, AVar, RAE
+export findCorr, findkL, findkU, updatekL, updatekU, Mfit, FInfo, AVar, RAE, GeneralizedTDist
 
 end
