@@ -184,7 +184,7 @@ function kurtosis(d::CMPDist)
     Ex3 = out3 / z
     Ex4 = out4 / z
     s = Ex2 - Ex1^2
-    (Ex4 - 4 * Ex3 * Ex1 + 6 * s * Ex1^2 + 3 * Ex1^4) / s^2
+    (Ex4 - 4 * Ex3 * Ex1 + 6 * s * Ex1^2 + 3 * Ex1^4) / s^2 - 3
 end
 
 import Distributions.mgf

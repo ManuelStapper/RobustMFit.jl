@@ -74,7 +74,7 @@ function ρMomL(d::T1,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
     if nPar > 1
-        return ρMomL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρMomL(d, x, fill(spec, nPar), maxIter, conv)
     end
     θs = zeros(maxIter)
     θs[1] = params(d)[1]
@@ -157,7 +157,7 @@ function ρMomU(d::T1,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
     if nPar > 1
-        return ρMomU(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρMomU(d, x, fill(spec, nPar), maxIter, conv)
     end
     θs = zeros(maxIter)
     θs[1] = params(d)[1]
@@ -240,7 +240,7 @@ function ρMomN(d::T1,
     conv::Float64=1e-05) where {T1<:UnivariateDistribution,T2<:Real,T3<:MSetting}
     nPar = nParEff(d)
     if nPar > 1
-        return ρMomN(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρMomN(d, x, fill(spec, nPar), maxIter, conv)
     end
     θs = zeros(maxIter)
     θs[1] = params(d)[1]

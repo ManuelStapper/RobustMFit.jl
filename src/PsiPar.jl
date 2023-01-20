@@ -100,7 +100,7 @@ function ψParL(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψParL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψParL(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -178,7 +178,7 @@ function ψParU(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψParU(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψParU(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -252,7 +252,7 @@ function ψParN(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψParN(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψParN(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)

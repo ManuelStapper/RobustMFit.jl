@@ -73,7 +73,7 @@ function wMomL(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return wMomL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return wMomL(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -158,7 +158,7 @@ function wMomU(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return wMomU(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return wMomU(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -240,7 +240,7 @@ function wMomN(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return wMomN(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return wMomN(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)

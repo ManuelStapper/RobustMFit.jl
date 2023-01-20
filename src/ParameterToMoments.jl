@@ -55,3 +55,7 @@ end
 function PTM(d::VonMises)::Vector{Float64}
     return [mean(d), var(d)]
 end
+
+function PTM(d::GeneralizedTDist)::Vector{Float64}
+    return [mean(d), var(d) + mean(d)^2]
+end

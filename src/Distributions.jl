@@ -717,3 +717,7 @@ end
 function NewDist(d::VonMises, θ::Vector{T}) where {T<:Real}
     VonMises(θ[1], θ[2])
 end
+
+function NewDist(d::GeneralizedTDist, θ::Vector{T}) where {T<:Real}
+    GeneralizedTDist(θ[1], θ[2], d.ν)
+end

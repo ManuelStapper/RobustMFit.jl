@@ -43,3 +43,7 @@ end
 function nParEff(d::VonMises)::Int64
     return 2
 end
+
+function nParEff(d::GeneralizedTDist)::Int64
+    return 2
+end

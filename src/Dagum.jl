@@ -83,7 +83,7 @@ function kurtosis(d::Dagum)
     s = var(d)
     Ex3 = b^3 * beta(p + 3 / a, 1 - 3 / a) / beta(p, 1)
     Ex4 = b^4 * beta(p + 4 / a, 1 - 4 / a) / beta(p, 1)
-    (Ex4 - 4 * Ex3 * μ + 6 * s * μ^2 + 3 * μ^4) / s^2
+    (Ex4 - 4 * Ex3 * μ + 6 * s * μ^2 + 3 * μ^4) / s^2 - 3
 end
 
 #### Evaluation

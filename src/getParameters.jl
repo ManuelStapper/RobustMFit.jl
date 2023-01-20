@@ -47,3 +47,7 @@ end
 function getParams(d::Pareto) where {T<:Real}
     [params(d)[2]]
 end
+
+function getParams(d::GeneralizedTDist) where {T<:Real}
+    params(d)[1:2]
+end

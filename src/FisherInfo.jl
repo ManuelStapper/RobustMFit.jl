@@ -394,3 +394,15 @@ function FInfo(d::Weibull{Float64})
     E = expectation(truncated(d, 0, quantile(d, 0.999)), n=10000)
     E(x -> dlf(x) * dlf(x)')
 end # checked
+
+
+function FInfo(d::GeneralizedTDist{Float64})
+    μ = d.μ
+    σ = d.σ
+    ν = d.ν
+
+    out = zeros(2, 2)
+    out[1, 1] = (ν + 1)/((ν + 3)*σ^2)
+    out[2, 2] = 2*ν/((ν + 3)*σ^2)
+    out
+end

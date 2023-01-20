@@ -80,7 +80,7 @@ function ψMomC(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψMomC(d, x, fill(spec, nPar), maxIter = maxIter, conv = conv)
+        return ψMomC(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)

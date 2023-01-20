@@ -96,7 +96,7 @@ function ρParL(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ρParL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρParL(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -180,7 +180,7 @@ function ρParU(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ρParU(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρParU(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -258,7 +258,7 @@ function ρParN(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ρParN(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ρParN(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)

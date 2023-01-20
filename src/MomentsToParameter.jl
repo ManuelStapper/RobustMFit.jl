@@ -342,6 +342,11 @@ function MTP(μ::Vector{T}, d::TDist)::Vector{Float64} where {T<:Real}
     return [2 * μ[1] / (μ[1] - 1)]
 end
 
+function MTP(μ::Vector{T}, d::GeneralizedTDist)::Vector{Float64} where {T<:Real}
+    return [μ[1], sqrt((μ[2] - μ[1]^2)*(d.ν - 2)/d.ν)]
+end
+
+
 function MTP(μ::Vector{T}, d::VonMises)::Vector{Float64} where {T<:Real}
     μd = μ[1]
     s = μ[2] - μ[1]^2

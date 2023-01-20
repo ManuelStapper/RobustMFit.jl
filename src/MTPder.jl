@@ -392,6 +392,20 @@ function MTPder(μ::Vector{T}, d::TDist)::Matrix{Float64} where {T<:Real}
     return out
 end
 
+function MTPder(μ::Vector{T}, d::GeneralizedTDist)::Matrix{Float64} where {T<:Real}
+    out = zeros(2, 2)
+
+    # ∂μd/∂μ
+    out[1, 1] = 1.0
+    out[2, 1] = 0.0
+
+    # ∂σ/∂μ
+    out[1, 2] = -(m[1]*(d.ν - 2))/(d.ν*sqrt((d.ν - 2)*(m[2] - m[1]^2)/d.ν))
+    out[2, 2] = (d.ν - 2)/(2*d.ν*sqrt((d.ν - 2)*(m[2] - m[1]^2)/d.ν))
+
+    return out
+end
+
 # Use fallback function
 # function MTPder(μ::Vector{T}, d::VonMises)::Matrix{Float64} where {T <: Real}
 #

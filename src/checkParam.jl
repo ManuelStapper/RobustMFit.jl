@@ -141,6 +141,10 @@ function checkParam(d::TDist, θ::T)::Bool where {T <: Real}
     θ > 0 ? true : false
 end
 
+function checkParam(d::GeneralizedTDist, θ::T)::Bool where {T<:Real}
+    (θ[2] > 0) & (θ[3] > 0) ? true : false
+end
+
 function checkParam(d::VonMises, θ::Vector{T})::Bool where {T <: Real}
     θ[2] > 0 ? true : false
 end

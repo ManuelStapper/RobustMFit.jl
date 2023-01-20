@@ -80,7 +80,7 @@ function ψMomL(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψMomL(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψMomL(d, x, fill(spec, nPar), maxIter, conv)
     end
     out = 0.0
 
@@ -172,7 +172,7 @@ function ψMomU(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψMomU(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψMomU(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
@@ -261,7 +261,7 @@ function ψMomN(d::T1,
     nPar = nParEff(d)
     # In case of multiple parameters each with the same spec
     if nPar > 1
-        return ψMomN(d, x, fill(spec, nPar), maxIter=maxIter, conv=conv)
+        return ψMomN(d, x, fill(spec, nPar), maxIter, conv)
     end
 
     θs = zeros(maxIter)
