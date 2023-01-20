@@ -3,6 +3,8 @@ module RobustMFit
 using Distributions, Optim, QuadGK, Expectations, SpecialFunctions, ForwardDiff
 using Roots, Calculus, LinearAlgebra, Random
 
+import Base.maximum, Base.minimum, Distributions.maximum, Distributions.minimum
+
 ### General functions
 ### Additional Distributions/MFunctions
 include("Dagum.jl")
