@@ -4,6 +4,10 @@ using Distributions, Optim, QuadGK, Expectations, SpecialFunctions, ForwardDiff
 using Roots, Calculus, LinearAlgebra, Random
 
 ### General functions
+### Additional Distributions/MFunctions
+include("Dagum.jl")
+include("CMPDist.jl")
+include("GeneralizedTDist.jl")
 include("Distributions.jl")
 include("nPar.jl")
 include("MFunctions.jl")
@@ -18,10 +22,6 @@ include("dmu.jl")
 include("getParameters.jl")
 include("ParameterToMoments.jl")
 
-### Additional Distributions/MFunctions
-include("Dagum.jl")
-include("CMPDist.jl")
-include("GeneralizedTDist.jl")
 include("NewMFunction.jl")
 
 ### Bias corrections
