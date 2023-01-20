@@ -29,7 +29,6 @@ GeneralizedTDist(μ::Real, σ::Real, ν::Real) = GeneralizedTDist(promote(μ, σ
 GeneralizedTDist(μ::Integer, σ::Integer, ν::Integer) = GeneralizedTDist(float(μ), float(σ), float(ν))
 
 import Distributions.@distr_support
-import Base.minimum, Base.maximum, Distributions.minimum, Distributions.maximum
 @distr_support GeneralizedTDist -Inf Inf
 
 #### Conversions
