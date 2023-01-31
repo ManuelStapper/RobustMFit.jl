@@ -215,6 +215,10 @@ function pdf(d::CMPDist, x::Integer)
     exp(x * log(λ) - ν * logabsgamma(x + 1)[1]) / Z(λ, ν)
 end
 
+function logpdf(d::CMPDist, x::T) where {T <: Real}
+    return log(pdf(d, x))
+end
+
 function pdf(d::CMPDist, x::Real)
     round(Int, x) == x ? pdf(d, round(Int, x)) : 0.0
 end
@@ -375,4 +379,9 @@ end
 function rand(d::CMPDist, dim1::Int, moredims::Int...)
     x = rand(d, dim1 * prod(moredims))
     reshape(x, (dim1, moredims...))
+end
+
+
+function checkParam(d::CMPDist, θ::Vector{T}) where {T <: Real}
+    (θ[1] > 0) & (θ[2] > 0) ? true : false
 end

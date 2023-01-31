@@ -100,6 +100,11 @@ function pdf(d::Dagum, x::Real)::Float64
     x <= 0 ? 0.0 : a * p / x * ((x / b)^(a * p)) / (((x / b)^a + 1)^(p + 1))
 end
 
+import Distributions.logpdf
+function logpdf(d::Dagum, x::Real)::Float64
+    log(pdf(d, x))
+end
+
 import Distributions.cdf
 function cdf(d::Dagum, x::Real)::Float64
     (a, b, p) = params(d)

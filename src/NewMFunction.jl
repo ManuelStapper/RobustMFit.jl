@@ -127,5 +127,9 @@ function ψder(z::T1, spec::MyTypeS)::Float64 where {T1 <: Real}
 end
 
 function w(z::T1, spec::MyTypeS)::Float64 where {T1 <: Real}
+    # Avoid numerical instability for z close to zero
+    if abs(z) <= 0.01
+        return ψder(z, spec)
+    end
     ψ(z, spec)/z
 end

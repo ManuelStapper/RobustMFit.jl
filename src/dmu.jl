@@ -1,7 +1,6 @@
 # For some distributions, computes derivative of mean with respect to parameters
 # Fallback gives derivatives of the first moments, like PTMder similar to MTPder
 
-# Functions are probably not needed anymore?!
 function dμ(d::Beta{Float64})::Matrix{Float64}
     α = d.α
     β = d.β
@@ -429,13 +428,15 @@ function dμ(d::T)::Matrix{Float64} where {T<:UnivariateDistribution}
     # Parameter vector
     θ = getParams(d)
 
-    function tf(θ, d, x, δ, i, p)
-        dtf = NewDist(d, θ)
-        return mean(dPower(dNew, p))
+    function tf(θ, d, δ, i, p)
+        θtf = copy(θ)
+        θtf[i] = δ
+        dtf = NewDist(d, θtf)
+        return mean(dPower(dtf, p))
     end
 
     for i = 1:nPar, j = 1:nPar
-        out[i, j] = ForwardDiff.derivative(δ -> tf(θ, d, x, δ, i, j), θ[i])
+        out[i, j] = Calculus.derivative(δ -> tf(θ, d, δ, i, j), θ[i])
     end
 
     return out

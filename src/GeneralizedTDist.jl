@@ -149,3 +149,7 @@ end
 function rand(d::GeneralizedTDist, dim1::Int, moredims::Int...)
     d.σ .* rand(TDist(d.ν), (dim1, moredims...)) .+ d.μ
 end
+
+function checkParam(d::GeneralizedTDist, θ::Vector{T}) where {T<:Real}
+    (θ[2] > 0) ? true : false
+end
