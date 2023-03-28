@@ -107,7 +107,7 @@ using Test
         Normal(),
         NormalCanon(),
         # NormalInverseGaussian(0, 1, 0, 1),
-        PGeneralizedGaussian(),
+        # PGeneralizedGaussian(),
         Pareto(),
         Poisson(),
         Rayleigh(),
@@ -115,7 +115,7 @@ using Test
         VonMises(),
         Weibull()]
 
-    for i = 1:31
+    for i = 1:length(AllDists)
         m = PTM(AllDists[i])
         MTP(m, AllDists[i])
         MTPder(m, AllDists[i])

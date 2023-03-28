@@ -326,34 +326,34 @@ function dμ(d::NormalInverseGaussian{Float64})::Matrix{Float64}
 end
 
 # Symmetric Distribution, therefore also include kurtosis
-function dμ(d::PGeneralizedGaussian{T1,T2,T3})::Matrix{Float64} where {T1,T2,T3<:Real}
-    μ = d.μ
-    α = d.α
-    p = d.p
+# function dμ(d::PGeneralizedGaussian{T1,T2,T3})::Matrix{Float64} where {T1,T2,T3<:Real}
+#     μ = d.μ
+#     α = d.α
+#     p = d.p
 
-    μd = mean(d)
-    σ = std(d)
+#     μd = mean(d)
+#     σ = std(d)
 
-    dμ = [1; 0; 0]
-    dσ = [0; 2 * σ^2 / α; σ^2 * (digamma(1 / p) - 3 * digamma(3 / p)) / p^2]
+#     dμ = [1; 0; 0]
+#     dσ = [0; 2 * σ^2 / α; σ^2 * (digamma(1 / p) - 3 * digamma(3 / p)) / p^2]
 
-    μd = mean(d)
-    σd = var(d)
-    γ = skewness(d)
-    κ = kurtosis(d, false)
+#     μd = mean(d)
+#     σd = var(d)
+#     γ = skewness(d)
+#     κ = kurtosis(d, false)
 
-    dγ = [0; 0; 0]
-    dκ = [0; 0; -gamma(1 / p) * gamma(5 / p) * (digamma(1 / p) - 6 * digamma(3 / p) + 5 * digamma(5 / p)) / (p^2 * gamma(3 / p)^2)]
-    out2 = dσ + 2 * μd .* dμ
-    out3 = σd^(3 / 2) .* dγ .+ (3 / 2 * sqrt(σd) * γ) .* dσ + 3 * μd .* (dσ .- μd .* dμ) + (3 * σd) .* dμ
+#     dγ = [0; 0; 0]
+#     dκ = [0; 0; -gamma(1 / p) * gamma(5 / p) * (digamma(1 / p) - 6 * digamma(3 / p) + 5 * digamma(5 / p)) / (p^2 * gamma(3 / p)^2)]
+#     out2 = dσ + 2 * μd .* dμ
+#     out3 = σd^(3 / 2) .* dγ .+ (3 / 2 * sqrt(σd) * γ) .* dσ + 3 * μd .* (dσ .- μd .* dμ) + (3 * σd) .* dμ
 
-    Ex2 = σd + μd^2
-    Ex3 = σd^(3 / 2) * γ + 3 * μd * σd - μd^3
-    Ex4 = κ * σd^2 + 4 * μd * Ex3 - 6 * μd^2 * Ex2 + 3 * μd^4
-    out4 = dκ .* σd^2 .+ (2 * κ * σd) .* dσ .+ (4 * Ex3) .* dμ .+ (4 * μd) .* out3 .- (12 * μd * Ex2) .* dμ - (6 * μd^2) .* out2 .- (12 * μd^3) .* dμ
+#     Ex2 = σd + μd^2
+#     Ex3 = σd^(3 / 2) * γ + 3 * μd * σd - μd^3
+#     Ex4 = κ * σd^2 + 4 * μd * Ex3 - 6 * μd^2 * Ex2 + 3 * μd^4
+#     out4 = dκ .* σd^2 .+ (2 * κ * σd) .* dσ .+ (4 * Ex3) .* dμ .+ (4 * μd) .* out3 .- (12 * μd * Ex2) .* dμ - (6 * μd^2) .* out2 .- (12 * μd^3) .* dμ
 
-    [dμ out2 out3 out4]
-end
+#     [dμ out2 out3 out4]
+# end
 
 function dμ(d::Pareto{Float64})::Matrix{Float64}
     α = d.α
