@@ -43,10 +43,12 @@ function Mfit(x::Vector{T1},
     biasCorr::Union{Symbol,String}=:L,
     maxIter::Int64 = 1000,
     conv::Float64=1e-05) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
+    if nParEff(d) > 1
+        spec = fill(spec, nParEff(d))
+    end
     fname = Symbol(type, ifelse(MM, :Mom, :Par), biasCorr)
     return eval(Expr(:call, fname, d, x, spec, maxIter, conv))
 end
-
 
 
 function Mfit(x::Vector{T1},
@@ -58,5 +60,8 @@ function Mfit(x::Vector{T1},
     maxIter::Int64 = 1000,
     conv::Float64=1e-05) where {T1<:Real,T2<:UnivariateDistribution,T3<:MSetting}
     fname = Symbol(type, ifelse(MM, :Mom, :Par), biasCorr)
+    if length(spec) < nParEff(d)
+        spec = fill(spec, nParEff(d))
+    end
     return eval(Expr(:call, fname, d, x, spec, maxIter, conv))
 end
