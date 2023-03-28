@@ -123,7 +123,7 @@ using Test
         getParams(AllDists[i])
     end
 
-    for i = 1:31
+    for i = 1:length(AllDists)
         if i != 22
             FInfo(AllDists[i])
         end
