@@ -184,7 +184,7 @@ function ψMomU(d::T1,
 
     for i = 1:maxIter-1
         specTemp = copy(spec)
-        specTemp = updatekL(dOld, spec)
+        specTemp = updatekU(dOld, spec)
         bounds = quantile.(dOld, [0.01, 0.99])
 
         μ = optimize(vars -> tfψ(vars, dOld, x, 1, specTemp), bounds[1], bounds[2]).minimizer
