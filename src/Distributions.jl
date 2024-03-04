@@ -217,11 +217,11 @@ function cdf(d::dPower, x::T)::Float64 where {T<:Real}
             return 1.0
         end
 
-        if supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
+        if typeof(d.d) <: Sampleable{Univariate,Continuous}
             x1 = abs(x)^(1 / d.p)
             x2 = -abs(x)^(1 / d.p)
             return cdf(d.d, x1) - cdf(d.d, x2)
-        elseif supertype(typeof(d.d)) == Distribution{Univariate,Discrete}
+        elseif typeof(d.d) == Sampleable{Univariate,Discrete}
             sup = iterateSupport(d, 10)
             while true
                 if any(sup .^ d.p .> x)
@@ -260,7 +260,7 @@ pdf(dPower, 2)
 See also [`dPower`](@ref dPower).
 """
 function pdf(d::dPower, x::T)::Float64 where {T<:Real}
-    if supertype(typeof(d.d)) == Distribution{Univariate,Discrete}
+    if typeof(d.d) <: Sampleable{Univariate,Discrete}
         if iseven(d.p)
             if x < 0
                 return 0.0
@@ -272,7 +272,7 @@ function pdf(d::dPower, x::T)::Float64 where {T<:Real}
             x1 = round(sign(x) * abs(x)^(1 / d.p), digits = 10)
             return pdf(d.d, x1)
         end
-    elseif supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
+    elseif typeof(d.d) <: Sampleable{Univariate,Continuous}
         if iseven(d.p)
             if x < 0
                 return 0
@@ -331,7 +331,7 @@ function quantile(d::dPower, q::T)::Float64 where {T<:Real}
         if minimum(d.d) >= 0
             return quantile(d.d, q)^d.p
         end
-        if supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
+        if typeof(d.d) <: Sampleable{Univariate,Continuous}
             lower = 0
             Fl = cdf(d, lower)
             upper = 10
@@ -361,7 +361,7 @@ function quantile(d::dPower, q::T)::Float64 where {T<:Real}
                     return upper
                 end
             end
-        elseif supertype(typeof(d.d)) == Distribution{Univariate,Discrete}
+        elseif typeof(d.d) <: Sampleable{Univariate,Discrete}
             sup = iterateSupport(d, 10)
             while true
                 if cdf(d, sup[end]^d.p) >= q
@@ -506,7 +506,7 @@ function mean(d::dPower)
         return κ * σ^4 + 4 * Ex3 * μ - 6 * Ex2 * μ^2 + 3 * μ^4
     else
         p = d.p
-        if supertype(typeof(d.d)) == Distribution{Univariate,Continuous}
+        if typeof(d.d) <: Sampleable{Univariate,Continuous}
             if isfinite(minimum(d.d) - maximum(d.d))
                 E = expectation(d.d, n=1000)
             else
