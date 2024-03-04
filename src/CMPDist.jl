@@ -30,7 +30,7 @@ CMPDist(λ::Integer, ν::Float64) = CMPDist(float(λ), ν)
 CMPDist(λ::Float64, ν::Integer) = CMPDist(λ, float(ν))
 
 import Distributions.@distr_support
-import Base.minimum, Base.maximum
+import Base.minimum, Base.maximum, Distributions.minimum, Distributions.maximum
 @distr_support CMPDist 0 (d.λ == zero(typeof(d.λ)) ? 0 : Inf)
 function minimum(d::CMPDist)
     return 0
@@ -205,7 +205,7 @@ function cf(d::CMPDist, t::Real)
     return Z(λ * (cis(t) - 1), ν) / Z(λ, ν)
 end
 
-import Distributions.pdf
+import Distributions.pdf, Distributions.logpdf
 function pdf(d::CMPDist, x::Integer)
     if x < 0
         return 0.0
