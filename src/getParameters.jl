@@ -31,23 +31,23 @@ function getParams(d::Binomial)
 end
 
 # Exceptions for distributions with fixed parameters
-function getParams(d::BetaBinomial) where {T<:Real}
+function getParams(d::BetaBinomial)
     pRaw = params(d)
     return [pRaw[2], pRaw[3]]
 end
 
-function getParams(d::Binomial) where {T<:Real}
+function getParams(d::Binomial)
     [params(d)[2]]
 end
 
-function getParams(d::Erlang) where {T<:Real}
+function getParams(d::Erlang)
     [params(d)[2]]
 end
 
-function getParams(d::Pareto) where {T<:Real}
+function getParams(d::Pareto)
     [params(d)[2]]
 end
 
-function getParams(d::GeneralizedTDist) where {T<:Real}
+function getParams(d::GeneralizedTDist)
     params(d)[1:2]
 end
