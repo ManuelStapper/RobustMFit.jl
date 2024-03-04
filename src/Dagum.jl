@@ -30,6 +30,7 @@ Dagum(a::Real, b::Real, p::Real) = Dagum(promote(a, b, p)...)
 Dagum(a::Integer, b::Integer, p::Integer) = Dagum(float(a), float(b), float(p))
 
 import Distributions.@distr_support
+import Distributions.minimum, Distributions.maximum, Base.minimum, Base.maximum
 @distr_support Dagum 0.0 Inf
 function minimum(d::Dagum)
     return 0
